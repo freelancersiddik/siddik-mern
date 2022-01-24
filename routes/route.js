@@ -14,12 +14,6 @@ __dirname = path.resolve();
 if (process.env.NODE_ENV == "production") {
   router.use(express.static("client/build"));
 
-  router.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-  });
-} else {
-  router.use(express.static("client/build"));
-
   router.get("/", (req, res) => {
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
@@ -38,7 +32,6 @@ router.use(express.static("client/build"));
 router.get("/", (req, res) => {
   res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
 });
-
 
 router.post("/register", async (req, res) => {
   try {
