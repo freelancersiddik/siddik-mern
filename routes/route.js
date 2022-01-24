@@ -14,23 +14,31 @@ __dirname = path.resolve();
 if (process.env.NODE_ENV == "production") {
   router.use(express.static("client/build"));
 
-  router.get("/", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-  });
-}else if(process.env.NODE_ENV == "production"){
-  router.use(express.static("client/build"));
-
   router.get("*", (req, res) => {
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
+} else {
+  router.use(express.static("client/build"));
+
+  router.get("/", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
 }
+// } else if (process.env.NODE_ENV == "production") {
+//   router.use(express.static("client/build"));
+
+//   router.get("*", (req, res) => {
+//     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+//   });
+// }
 
 // for localhost
 
+router.use(express.static("client/build"));
 router.get("/", (req, res) => {
-  router.use(express.static("client/build"));
   res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
 });
+
 
 router.post("/register", async (req, res) => {
   try {
@@ -127,7 +135,8 @@ router.get("/cookie", (req, res) => {
   res.send(req.token);
 });
 
-
-
+router.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+});
 
 module.exports = router;
